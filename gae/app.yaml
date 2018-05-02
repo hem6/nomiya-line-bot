@@ -11,3 +11,6 @@ automatic_scaling:
   max_idle_instances: 1                 # idle状態にあるインスタンスの最大値
   min_pending_latency: 3000ms  # リクエストを処理するまでに許される待ち時間の最小
   max_pending_latency: automatic
+
+includes:
+- secret.yaml
