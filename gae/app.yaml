@@ -1,0 +1,13 @@
+runtime: go
+api_version: go1
+
+handlers:
+- url: /.*
+  script: _go_app
+
+# see: http://koni.hateblo.jp/entry/2016/01/06/130613
+automatic_scaling:
+  min_idle_instances: automatic   # idle状態にあるインスタンスの最小値
+  max_idle_instances: 1                 # idle状態にあるインスタンスの最大値
+  min_pending_latency: 3000ms  # リクエストを処理するまでに許される待ち時間の最小
+  max_pending_latency: automatic
