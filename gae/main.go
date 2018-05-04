@@ -42,6 +42,8 @@ func init() {
 				case *linebot.TextMessage:
 					handleTextMessage(ctx, event, client)
 				}
+			case linebot.EventTypeJoin:
+				handleJoin(ctx, event, client)
 			}
 		}
 	})
@@ -120,4 +122,12 @@ func searchNomiyaHandler(ctx context.Context, message string) (replies []linebot
 		linebot.NewTemplateMessage("(飲み屋おじさんの飲み屋リスト)", template),
 	}
 	return
+}
+
+func handleJoin(ctx context.Context, event *linebot.Event, client *linebot.Client) {
+	reply := linebot.NewTextMessage("どうも、飲み屋おじさんです。\n「○○の飲み屋」と話しかけるとランダムな飲み屋を紹介します。")
+	_, err := client.ReplyMessage(event.ReplyToken, reply).WithContext(ctx).Do()
+	if err != nil {
+		aelog.Warningf(ctx, "reply error: %v", err)
+	}
 }
